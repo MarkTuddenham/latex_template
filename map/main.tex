@@ -16,9 +16,10 @@
 % \usepackage{amssymb}                % American Mathematical Society symbols
 % \usepackage{mathtools}              % Mathematical tools to use with amsmath
 % \usepackage{wrapfig}                % allows text to wrap around figures
+% \usepackage{fontawesome}            % 634 web-re­lated icons 
 % \usepackage[super]{nth}             % add position formatting e.g. \nth{1} -> 1st
 \usepackage{titlesec}                 % Select alternative section titles
-% \usepackage{xcolor}                 % Driver-independent colour extensions for LaTeX
+\usepackage{xcolor}                   % Driver-independent colour extensions for LaTeX
 % \usepackage{subcaption}             % Support for captions on sub-divided figures
 % \usepackage{epstopdf}               % Convert EPS to PDF using Ghostscript
 \usepackage{csquotes}                 % Advanced fa­cil­i­ties for in­line and dis­play quotations
@@ -93,8 +94,8 @@
 \cftsetindents{section}{0em}{2em}
 \cftsetindents{subsection}{2em}{2em}
 
-% \definecolor{burgundy}{rgb}{0.5, 0.0, 0.13}
-% \titleformat*{\section}{\Large\bfseries\sffamily\color{burgundy}}
+\definecolor{burgundy}{rgb}{0.5, 0.0, 0.13}
+\titleformat*{\section}{\Large\bfseries\sffamily\color{burgundy}}
 \titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
 
 \sectionfont			{\fontsize{14}{16}\selectfont}
@@ -119,15 +120,24 @@
 
 \newcommand*\mean[1]{\bar{#1}}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
 \newcommand{\ie}{\textit{i.e. }}
 \newcommand{\eg}{\textit{e.g. }}
+\newcommand{\inc}{\textit{inc. }}
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
 
 \setcounter{tocdepth}{3} % set max toc depth
 
 \fontfamily{cmr}\selectfont
 
 % ~~~~~ PDF metadata ~~~~~
-\input{head.tex}
+\input{head}
 
 \hypersetup{
   pdfinfo={
@@ -152,13 +162,13 @@
 
 % ~~~~~ Titlepage ~~~~~
 \newgeometry{margin=0.85in}
-\input{titlepage.tex}
+\input{titlepage}
 \restoregeometry
 % ~~~~~~~~~~~~~~~~~~~~~~
 
 
 % ~~~~~ Abstract ~~~~~
-% \input{abstract.tex}
+% \input{abstract}
 % ~~~~~~~~~~~~~~~~~~~~
 
 
@@ -176,7 +186,8 @@
 
 
 % ~~~~~ input content files ~~~~~
-% \input{file}
+\input{files}
+
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 % ~~~~~ References ~~~~~
@@ -187,7 +198,7 @@
 % ~~~~~~~~~~~~~~~~~~~~~
 
 % ~~~~~ Appendices ~~~~~
-% \input{appendices.tex}
+% \input{appendices}
 % ~~~~~~~~~~~~~~~~~~~~~~~
 
 
