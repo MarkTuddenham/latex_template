@@ -1,41 +1,56 @@
 
-clean_ignore = "map|bibs|content|tmp|in|\.tex|\.pdf|makefile|.git|.gitignore|.vscode"
-temp_dir = tmp
+# ~~~~~~ DIRS & FILES ~~~~~~
+OUTPUT_FILE ?= main.pdf
 
-ifndef $(output)
-output = main.pdf
-endif
+TMP_DIR := tmp
+CONTENT_DIR := content
+INPUT_DIR := in
+BIBS_DIR := bibs
 
-word_count_files = $(shell ls -A content/ | grep -E "\.tex")
-word_count_paths = $(addprefix ./content/, $(word_count_files))
-compile_cmd = pdflatex -halt-on-error -shell-escape -output-directory tmp map/main.tex
+ROOT_TEX_FILE_NAME := main
+ROOT_TEX_FILE_PATH := map/$(ROOT_TEX_FILE_NAME).tex
+
+WORD_COUNT := word_count.txt
+WORD_COUNT_FILES := $(shell ls -A $(CONTENT_DIR)/ | grep -E "\.tex")
+WORD_COUNT_PATHS := $(addprefix ./$(CONTENT_DIR)/, $(WORD_COUNT_FILES))
+
+# ~~~~~~ COMMANDS ~~~~~~
+RM_FORCE := rm -fv
+LATEX_COMPILE := pdflatex
+LATEX_COMPILE_OPTIONS := -halt-on-error -shell-escape -output-directory $(TMP_DIR)
+BIB_COMPLIE := biber
+
+CLEAN_IGNORE_REGEX := "map|bibs|content|tmp|in|\.tex|\.pdf|makefile|.git|.gitignore|.vscode"
 
 
+# ~~~~~~ PHONY ~~~~~~
 .PHONY: clean open compile bib
 .DEFAULT_GOAL: compile
 
-compile: $(temp_dir)/main.pdf
+# ~~~~~~ PHONY RULES ~~~~~~
+compile: $(OUTPUT_FILE)
 
-bib: $(temp_dir)/main.blg
+bib: $(TMP_DIR)/$(ROOT_TEX_FILE_NAME).blg
 
 clean:
-	ls -A $(temp_dir)/ | grep -vE ".gitignore" | sed -e 's|^|$(temp_dir)/|' | xargs -rt rm
-	ls -A | grep -vE $(clean_ignore) | xargs -rt rm
+	$(RM_FORCE) -r $(TMP_DIR)/*
+	ls -A | grep -vE $(CLEAN_IGNORE_REGEX) | xargs -rt RM_FORCE
 
-open: main.pdf
-	xdg-open main.pdf &
+open: $(OUTPUT_FILE)
+	xdg-open $(OUTPUT_FILE) &
 
-$(temp_dir)/main.pdf: $(temp_dir)/word_count.txt content/*.tex in/ $(temp_dir)/main.blg
-	$(compile_cmd)
-	mv $(temp_dir)/main.pdf $(output)
+# ~~~~~~ FILE RULES ~~~~~~
+$(OUTPUT_FILE): $(TMP_DIR)/$(ROOT_TEX_FILE_NAME).pdf
+	mv $(TMP_DIR)/$(ROOT_TEX_FILE_NAME).pdf $(OUTPUT_FILE)
 
-$(temp_dir)/main.blg: bibs/* $(temp_dir)/
-	$(compile_cmd)
-	biber $(temp_dir)/main
-	$(compile_cmd)
+$(TMP_DIR)/$(ROOT_TEX_FILE_NAME).pdf: $(TMP_DIR)/$(WORD_COUNT) $(CONTENT_DIR)/*.tex $(INPUT_DIR)/ $(TMP_DIR)/$(ROOT_TEX_FILE_NAME).blg
+	$(LATEX_COMPILE) $(LATEX_COMPILE_OPTIONS) $(ROOT_TEX_FILE_PATH)
 
-$(temp_dir)/word_count.txt: $(word_count_paths) $(temp_dir)/
-	texcount -1 -sum $(word_count_paths) > $(temp_dir)/word_count.txt
+$(TMP_DIR)/$(ROOT_TEX_FILE_NAME).blg: $(TMP_DIR)/$(ROOT_TEX_FILE_NAME).pdf $(BIBS_DIR)/* 
+	$(BIB_COMPLIE) $(TMP_DIR)/$(ROOT_TEX_FILE_NAME)
 
-$(temp_dir)/:
-	if [ ! -d $(temp_dir) ]; then mkdir $(temp_dir); fi
+$(TMP_DIR)/$(WORD_COUNT): $(WORD_COUNT_PATHS) $(TMP_DIR)/
+	texcount -1 -sum $(WORD_COUNT_PATHS) > $(TMP_DIR)/$(WORD_COUNT)
+
+$(TMP_DIR)/:
+	if [ ! -d $(TMP_DIR) ]; then mkdir $(TMP_DIR); fi
