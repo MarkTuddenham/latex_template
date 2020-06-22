@@ -1,169 +1,22 @@
-\documentclass[10pt, a4paper]{article}
-
-% ~~~~~ Package imports ~~~~~
-\usepackage[utf8]{inputenc}           % use utf-8 encoding
-% \usepackage{listings}               % import code files
-% \usepackage{graphicx}               % Include graphics files
-\usepackage[normalem]{ulem}           % provides \ul for underlining
-\usepackage{sectsty}                  % Allows stylistic changes of headers
-% \usepackage{multicol}               % Enable multicolumn environments
-\usepackage[page]{appendix}           % Allows formatting of appendix titles
-\usepackage{tocloft}                  % Provides control over the ty­pog­ra­phy of the Ta­ble of Con­tents etc.
-\usepackage[UKenglish]{babel}         % Multilingual support & language settings
-% \usepackage[useregional]{datetime2} % Allows use of \today
-\usepackage{parskip}                  % Layout with zero \parindent, non-zero \parskip
-% \usepackage{amsmath}                % American Mathematical Society mathematical facilities
-% \usepackage{amssymb}                % American Mathematical Society symbols
-% \usepackage{mathtools}              % Mathematical tools to use with amsmath
-% \usepackage{wrapfig}                % allows text to wrap around figures
+\documentclass[12pt, a4paper]{cls/technical_report}
+\usepackage{geometry}
+\usepackage{wrapfig}
+\usepackage{subcaption}
 % \usepackage{fontawesome}            % 634 web-re­lated icons 
 % \usepackage[super]{nth}             % add position formatting e.g. \nth{1} -> 1st
-\usepackage{titlesec}                 % Select alternative section titles
-\usepackage{xcolor}                   % Driver-independent colour extensions for LaTeX
-% \usepackage{subcaption}             % Support for captions on sub-divided figures
-% \usepackage{epstopdf}               % Convert EPS to PDF using Ghostscript
-\usepackage{csquotes}                 % Advanced fa­cil­i­ties for in­line and dis­play quotations
-\usepackage{geometry}                 % Flexible and complete interface to document dimensions
-\usepackage{hyperref,bookmark}        % Produce hy­per­text links for cross-ref­er­enc­ing commands & book­mark (out­line) organization for pack­age hy­per­ref.
-\usepackage{cleveref}                 % Enhances LaTeX’s cross-ref­er­enc­ing features
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% \usepackage{multicol}               % Enable multicolumn environments
+% \usepackage{graphicx}               % Include graphics files
+% \usepackage{csquotes}               % Advanced fa­cil­i­ties for in­line and dis­play quotations
 
-% ~~~~~ Biblatex ~~~~~
-\usepackage[
-  backend=biber,
-  style=ieee,
-  sortlocale=en_GB,
-  natbib=true,
-  url=true,
-  doi=true,
-  eprint=false,
-  maxcitenames=2,
-  mincitenames=1
-]{biblatex}
-  
-\addbibresource{bib.bib}
-% ~~~~~~~~~~~~~~~~~~~~
-
-
-\DeclareUnicodeCharacter{2010}{-}
-% \DeclareMathOperator*{\argmax}{arg\!\max} % argmax operator
-
-% ~~~~~ abs & norm operators ~~~~~
-% \DeclarePairedDelimiter\abs{\lvert}{\rvert}
-% \DeclarePairedDelimiter\norm{\lVert}{\rVert}
-% \makeatletter
-% \let\oldabs\abs
-% \def\abs{\@ifstar{\oldabs}{\oldabs*}}
-% %
-% \let\oldnorm\norm
-% \def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
-% \makeatother
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-% ~~~~~ Add folders to input path ~~~~~
-\makeatletter
-\def\input@path{{content/}{map/}{in/}}
-\makeatother
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-% ~~~~~ Datetime2 setup ~~~~~
-% \DTMlangsetup[en-GB]{ord=raise,monthyearsep={,\space}}
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-% ~~~~~ Graphics package ~~~~~
-% \epstopdfsetup{update}
-% \DeclareGraphicsExtensions{.png, .eps} % For editing
-% \DeclareGraphicsExtensions{.eps, .png} % For publishing
-\renewcommand\textfraction{.5} % How much of the page is available for text
-\setcounter{totalnumber}{3} % total number of figures per page
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-% ~~~~~ Cleverref namings ~~~~~
-\crefname{algo}{algorithm}{algorithms}
-\crefname{script}{script}{scripts}
-\crefname{data}{the data set presented in}{the data sets presented in}
-\crefname{appendix}{appendix}{appendices}
-\crefname{figure}{figure}{figures}
-\crefname{equation}{equation}{equations}
-\crefdefaultlabelformat{#2#1#3}
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-% ~~~~~ Heading format ~~~~~
-\cftsetindents{section}{0em}{2em}
-\cftsetindents{subsection}{2em}{2em}
-
-\definecolor{burgundy}{rgb}{0.5, 0.0, 0.13}
-\titleformat*{\section}{\Large\bfseries\sffamily\color{burgundy}}
-\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
-
-\sectionfont			{\fontsize{14}{16}\selectfont}
-\subsectionfont		{\fontsize{11}{12}\selectfont}
-\subsubsectionfont{\fontsize{10}{11}\selectfont}
-\useunder{\uline}{\ul}{}
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-% ~~~~~ Hyphenation ~~~~~
-\pretolerance=10000
-\tolerance=2000
-\emergencystretch=10pt
-\lefthyphenmin4
-\righthyphenmin4
-\hyphenpenalty=1000
-% ~~~~~~~~~~~~~~~~~~~~~~~
-
-% ~~~~~ Input Listing settings ~~~~~
-% \input{listings}
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-\newcommand*\mean[1]{\bar{#1}}
-\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
-
-\newcommand{\ie}{\textit{i.e. }}
-\newcommand{\eg}{\textit{e.g. }}
-\newcommand{\inc}{\textit{inc. }}
-
-\newcommand\blfootnote[1]{%
-  \begingroup
-  \renewcommand\thefootnote{}\footnote{#1}%
-  \addtocounter{footnote}{-1}%
-  \endgroup
-}
-
-\setcounter{tocdepth}{3} % set max toc depth
-
-\fontfamily{cmr}\selectfont
-
-% ~~~~~ PDF metadata ~~~~~
-\input{head}
-
-\hypersetup{
-  pdfinfo={
-    Title={\pdfTitle{}},
-    Author={\pdfAuthor{}},
-    Subject={\pdfSubject{}},
-    Keywords={\pdfKeywords{}},
-    Creator={\pdfCreator{}},
-    Producer={\pdfProducer{}},
-    },
-  colorlinks,
-  hidelinks,
-  pdfnewwindow=true,
-  linktoc=all,
-  pdfborder=0 0 0,
-}
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
 \begin{document}
 
 
 
 % ~~~~~ Titlepage ~~~~~
-\newgeometry{margin=0.85in}
+\newgeometry{margin=2.5cm}
 \input{titlepage}
-\restoregeometry
+% \restoregeometry
 % ~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -186,7 +39,7 @@
 
 
 % ~~~~~ input content files ~~~~~
-\input{files}
+\input{content}
 
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
