@@ -39,12 +39,22 @@
 
 
 % ~~~~~ Headings ~~~~~
-\definecolor{burgundy}{rgb}{0.5, 0.0, 0.13}
-\titleformat*{\section}{\center\sffamily\color{burgundy}}
+\setcounter{tocdepth}{1} % set max toc depth, parts and chapters don't count.
+
+\addto\captionsUKenglish{\renewcommand{\partname}{Book}}
+
+\titleformat{\section}{\center\sffamily\color{burgundy}}{}{0pt}{}
+% \titleformat*{\section}{\center\sffamily\color{burgundy}}
 \titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
 
-% \titleformat{\part}[display]{\center\Huge}{{\uppercase\expandafter{\romannumeral\thepart}}}{12pt}{\LARGE}
-\titleformat{\chapter}[display]{\center\Huge}{{\uppercase\expandafter{\romannumeral\thechapter}}}{12pt}{\LARGE}
+\titleformat{\part}[display]{\center\Huge}{Book\\[1ex] \expandafter{\thepart}}{2ex}{\LARGE}[\rule{1cm}{.1pt}\vspace{1cm}]
+% \titleformat{\part}[display]{\center\Huge}{Book \thepart}{12pt}{\LARGE}
+
+\titleformat{\chapter}[display]{\vspace{4ex}\center}{\footnotesize\MakeUppercase{Chapter \expandafter{\thechapter}}}{-5pt}{\vspace{2ex}\titlerule\vspace{2ex}\large\bfseries}[\vspace{1cm}]
+% \titleformat{\chapter}[display]{\center}{\footnotesize\bfseries\MakeUppercase{Chapter \expandafter{\thechapter}}}{-5pt}{\vspace{2ex}\titlerule\vspace{2ex}\large}[\vspace{1cm}]
+% \titleformat{\chapter}[display]{\center}{\footnotesize\bfseries\MakeUppercase{Chapter \expandafter{\thechapter}}}{-5pt}{\large}[\rule{1cm}{.1pt}\vspace{1cm}]
+% \titleformat{\chapter}[display]{\center}{\footnotesize\bfseries\MakeUppercase{Chapter \expandafter{\thechapter}}}{-5pt}{\large}[\vspace{2ex}\titlerule]
+% \titleformat{\chapter}[display]{\center\Huge}{{\uppercase\expandafter{\romannumeral\thechapter}}}{12pt}{\LARGE}
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 \newenvironment{absolutelynopagebreak}
@@ -81,4 +91,5 @@
 \makeatother
 
 
-\makeatletter\@addtoreset{chapter}{part}\makeatother%
+% Reset chapters on new part
+% \makeatletter\@addtoreset{chapter}{part}\makeatother%
