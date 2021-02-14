@@ -20,8 +20,6 @@ LATEX_COMPILE_OPTIONS := -halt-on-error -shell-escape -output-directory $(TMP_DI
 BIB_COMPLIE := biber
 GLOSSARIES_COMPLIE := makeglossaries
 
-CLEAN_IGNORE_REGEX := "map|bibs|content|tmp|in|\.tex|\.pdf|makefile|.git|.gitignore|.vscode"
-
 
 # ~~~~~~ PHONY ~~~~~~
 .PHONY: clean open compile bib
@@ -33,8 +31,7 @@ compile: $(OUTPUT_FILE) bib
 bib: $(TMP_DIR)/$(ROOT_TEX_FILE_NAME).bcf
 
 clean:
-	$(RM_FORCE) -r $(TMP_DIR)/*
-	ls -A | grep -vE $(CLEAN_IGNORE_REGEX) | xargs -rt RM_FORCE
+	@$(RM_FORCE) -r $(TMP_DIR)/*
 
 open: $(OUTPUT_FILE)
 	xdg-open $(OUTPUT_FILE) &
