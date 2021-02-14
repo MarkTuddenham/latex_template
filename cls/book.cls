@@ -21,10 +21,9 @@
 
 
 % \RequirePackage{graphicx}               % Include graphics files
-\RequirePackage{sectsty}                  % Allows stylistic changes of headers
 \RequirePackage[page]{appendix}           % Allows formatting of appendix titles
 \RequirePackage[greek, UKenglish]{babel}         % Multilingual support & language settings
-% \RequirePackage[T1]{fontenc}
+\RequirePackage[T1]{fontenc}
 \RequirePackage{parskip}                  % Layout with zero \parindent, non-zero \parskip
 \RequirePackage{parallel}
 % \RequirePackage{wrapfig}                % allows text to wrap around figures
@@ -33,7 +32,7 @@
 % \RequirePackage{subcaption}             % Support for captions on sub-divided figures
 \RequirePackage{fancyhdr}
 \RequirePackage{csquotes}                 % Advanced fa­cil­i­ties for in­line and dis­play quotations
-\RequirePackage[paperwidth=6in, paperheight=9in]{geometry}                 % Flexible and complete interface to document dimensions
+\RequirePackage[paperwidth=156mm, paperheight=234mm]{geometry}                 % Flexible and complete interface to document dimensions
 
 \RequirePackage{cls/common}
 
@@ -72,6 +71,7 @@
 \renewcommand{\headrulewidth}{0pt}
 \fancyhead[LE, RO]{\small\itshape\nouppercase{\leftmark}}
 % \fancyhead[LO, RE]{\small\itshape\nouppercase{\rightmark}}
+\fancyhead[LO, RE]{\small\itshape\nouppercase{\pdfTitle \: \thepart}}
 \fancyfoot[CE, CO]{\thepage}
 \setlength{\headheight}{15pt}
 

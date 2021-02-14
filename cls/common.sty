@@ -7,6 +7,7 @@
 \RequirePackage[UKenglish]{babel}          % Multilingual support & language settings
 \RequirePackage{tocloft}                   % Provides control over the ty­pog­ra­phy of the Ta­ble of Con­tents etc.
 \RequirePackage[automake, acronym, toc]{glossaries}
+% \RequirePackage{sectsty}                  % Allows stylistic changes of headers
 \RequirePackage[useregional]{datetime2}    % Allows use of \today
 \RequirePackage{titlesec}                  % Select alternative section titles
 \RequirePackage{xcolor}                    % Driver-independent colour extensions for LaTeX
@@ -67,9 +68,9 @@
 
 \definecolor{burgundy}{rgb}{0.5, 0.0, 0.13}
 
-\sectionfont			{\fontsize{14}{16}\selectfont}
-\subsectionfont		{\fontsize{11}{12}\selectfont}
-\subsubsectionfont{\fontsize{10}{11}\selectfont}
+% \sectionfont			{\fontsize{14}{16}\selectfont}
+% \subsectionfont		{\fontsize{11}{12}\selectfont}
+% \subsubsectionfont{\fontsize{10}{11}\selectfont}
 \useunder{\uline}{\ul}{}
 % ~~~~~~~~~~~~~~~~~~~
 
@@ -122,7 +123,8 @@
   pdfborder=0 0 0,
 }
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   
+
+\newcommand{\midline}{\centerline{\rule{1cm}{.1pt}}}
 
 \newglossary{symbols}{sym}{sbl}{List of Abbreviations and Symbols}
 \makeglossary
