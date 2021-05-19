@@ -11,8 +11,7 @@ ROOT_TEX_FILE_NAME := main
 ROOT_TEX_FILE_PATH := map/$(ROOT_TEX_FILE_NAME).tex
 
 WORD_COUNT := word_count.txt
-WORD_COUNT_FILES := $(shell ls -A $(CONTENT_DIR)/ | grep -E "\.tex")
-WORD_COUNT_PATHS := $(addprefix ./$(CONTENT_DIR)/, $(WORD_COUNT_FILES))
+
 # ~~~~~~ COMMANDS ~~~~~~
 RM_FORCE := rm -fv
 LATEX_COMPILE := pdflatex
@@ -50,7 +49,7 @@ $(TMP_DIR)/$(ROOT_TEX_FILE_NAME).bcf: $(BIBS_DIR)/*.bib
 	@$(BIB_COMPLIE) $(TMP_DIR)/$(ROOT_TEX_FILE_NAME)
 
 $(TMP_DIR)/$(WORD_COUNT): $(WORD_COUNT_PATHS) $(TMP_DIR)/
-	@texcount -1 -sum $(WORD_COUNT_PATHS) > $(TMP_DIR)/$(WORD_COUNT)
+	@texcount -1 -sum -merge -dir=$(CONTENT_DIR) $(ROOT_TEX_FILE) > $(TMP_DIR)/$(WORD_COUNT)
 
 $(TMP_DIR)/:
 	@if [ ! -d $(TMP_DIR) ]; then mkdir $(TMP_DIR); fi
